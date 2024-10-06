@@ -1,0 +1,55 @@
+{
+    "name": "nuxt-app",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "start": "node .output/server/index.mjs",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "eslint",
+        "fix": "eslint --fix",
+        "check-types": "nuxi typecheck"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "@vueuse/core": "^10.7.2",
+        "floating-vue": "^5.2.2",
+        "nuxt": "^3.10.3",
+        "vue": "^3.4.21",
+        "vue-final-modal": "^4.5.3",
+        "vue-router": "^4.3.0",
+        "vue-toast-notification": "^3"
+    },
+    "devDependencies": {
+        "@nuxtjs/google-fonts": "^3.2.0",
+        "@nuxtjs/tailwindcss": "^6.11.4",
+        "@escral/eslint-config-vue-typescript": "^2.0.0",
+        "@total-typescript/ts-reset": "^0.5.1"
+    },
+    "browserslist": [
+        ">0.1%",
+        "not dead"
+    ],
+    "gitHooks": {
+        "pre-commit": [
+            "yarn lint-staged --allow-empty"
+        ]
+    },
+    "lint-staged": {
+        "*.{js,ts,mjs,jsx,vue}": [
+            "yarn fix",
+            "git add"
+        ]
+    },
+    "packageManager": "yarn@1.22.19",
+    "engines": {
+        "node": ">18.0"
+    },
+    "resolutions": {
+        "string-width": "4.2.3",
+        "sharp": "0.32.6"
+    }
+}

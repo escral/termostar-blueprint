@@ -1,0 +1,33 @@
+@layer components {
+    .input-number {
+        @apply w-fit flex items-center gap-0.5;
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        &__button {
+            @apply w-6 h-6 flex items-center justify-center text-black rounded-full cursor-pointer;
+
+            &:not(.\--disabled) {
+                @apply hover:bg-primary-light/50;
+            }
+
+            &.\--disabled {
+                @apply cursor-default opacity-50;
+            }
+        }
+
+        &__value {
+            @apply w-6 text-center;
+        }
+    }
+}

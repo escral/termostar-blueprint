@@ -1,0 +1,21 @@
+@import 'floating-vue/dist/style.css';
+
+.v-popper__popper.v-popper__popper--hidden,
+.v-popper__popper.v-popper__popper--shown {
+    transition: none;
+}
+
+.v-popper--theme-tooltip {
+    pointer-events: none;
+}
+
+.v-popper--theme-tooltip .v-popper__inner {
+    @apply bg-[#1e2533] font-medium text-center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 3px;
+}
+
+.v-popper--theme-tooltip .v-popper__arrow-outer {
+    @apply border-[#1e2533];
+}
