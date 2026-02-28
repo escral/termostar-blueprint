@@ -147,7 +147,6 @@ Instead:
 - Assemblies compute placement deterministically.
 - Use simple layout strategies:
     - Chain placement (A → B → C)
-    - Grid/row layout
     - Offset from anchor
     - Rotation alignment
 
