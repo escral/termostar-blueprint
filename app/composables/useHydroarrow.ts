@@ -1,7 +1,14 @@
 import type { SelectOption } from '~/types/SelectOption'
-import type { HydroarrowDiameter, HydroarrowElement } from '~/lib/Elements/HydroarrowElement'
+import type { HydroarrowDiameter } from '~/lib/specs/assembly'
 
-export function useHydroarrow(hydroarrow: HydroarrowElement) {
+type HydroarrowSpecLike = {
+    diameter: HydroarrowDiameter
+    length: number
+    insulation: number
+    thickness: number
+}
+
+export function useHydroarrow(hydroarrow: () => HydroarrowSpecLike) {
     const sizeOptions = computed<SelectOption<HydroarrowDiameter>[]>(() => [
         { value: 120, title: 'Ø120' },
         { value: 159, title: 'Ø159' },
@@ -11,16 +18,19 @@ export function useHydroarrow(hydroarrow: HydroarrowElement) {
     //
 
     const dimentions = computed(() => {
+        const value = hydroarrow()
+        const fullDiameter = value.diameter + value.insulation * 2
+        const fullLength = value.length + value.insulation * 2
+
         return {
-            diameter: hydroarrow.diameter,
-            fullDiameter: hydroarrow.fullDiameter,
-            length: hydroarrow.length,
-            fullLength: hydroarrow.fullLength,
+            diameter: value.diameter,
+            fullDiameter,
+            length: value.length,
+            fullLength,
         }
     })
 
     return {
-        element: hydroarrow,
         sizeOptions,
         dimentions,
     }
