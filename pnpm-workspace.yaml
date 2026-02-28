@@ -2,3 +2,8 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - yorkie
+
+publicHoistPattern:
+  - eslint
+  - yorkie
+  - lint-staged

@@ -11,29 +11,19 @@
         "lint": "eslint"
     },
     "dependencies": {
+        "@vueuse/core": "^14.2.1",
         "nuxt": "^4.3.1",
         "vue": "^3.5.29",
-        "vue-router": "^4.6.4",
-        "@vueuse/core": "^14.2.1"
+        "vue-router": "^4.6.4"
     },
     "devDependencies": {
         "@escral/lint": "^2.0.14",
         "@nuxtjs/google-fonts": "^3.2.0",
-        "@nuxtjs/tailwindcss": "^6.14.0"
+        "@nuxtjs/tailwindcss": "^6.14.0",
+        "jiti": "^2.6.1"
     },
     "browserslist": [
         ">0.1%",
         "not dead"
-    ],
-    "gitHooks": {
-        "pre-commit": [
-            "yarn lint-staged --allow-empty"
-        ]
-    },
-    "lint-staged": {
-        "*.{js,ts,mjs,jsx,vue}": [
-            "yarn fix",
-            "git add"
-        ]
-    }
+    ]
 }

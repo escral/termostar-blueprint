@@ -9,7 +9,7 @@
 import type { ThermowellPart } from '~/lib/Parts/ThermowellPart'
 
 defineOptions({
-    name: 'ThermowellPart',
+    name: 'ThermowellElement',
 })
 
 const props = defineProps<{

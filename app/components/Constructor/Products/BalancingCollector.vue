@@ -14,7 +14,7 @@
         >
             <InsulationDefs />
 
-            <HydroarrowPart v-hover="'hydroarrow-part'" :part="collector.hydroarrow">
+            <HydroarrowElement v-hover="'hydroarrow-part'" :part="collector.hydroarrow">
                 <g v-hover="'hydroarrow-joiner'">
                     <PipePart
                         :part="collector.hydroarrow.mainJoin.top"
@@ -23,28 +23,28 @@
                     />
                 </g>
                 <g v-hover="'hydroarrow-center'">
-                    <ThermowellPart
+                    <ThermowellElement
                         :part="collector.hydroarrow.thermowells.top"
                         :x="mmToUnits(collector.hydroarrow.join.top.x)"
                         :y="mmToUnits(collector.hydroarrow.join.top.y)"
                     />
-                    <ThermowellPart
+                    <ThermowellElement
                         :part="collector.hydroarrow.thermowells.bottom"
                         :x="mmToUnits(collector.hydroarrow.join.bottom.x)"
                         :y="mmToUnits(collector.hydroarrow.join.bottom.y)"
                     />
                 </g>
-            </HydroarrowPart>
+            </HydroarrowElement>
         </svg>
     </div>
 </template>
 
 <script setup lang="ts">
-import HydroarrowPart from '~/components/Constructor/Parts/HydroarrowPart.vue'
-import ThermowellPart from '~/components/Constructor/Parts/ThermowellPart.vue'
+import HydroarrowElement from '~/components/Constructor/Elements/HydroarrowElement.vue'
+import ThermowellElement from '~/components/Constructor/Elements/ThermowellElement.vue'
 import InsulationDefs from '~/components/Constructor/InsulationDefs.vue'
 import type BalancingCollectorWithHydroarrowProduct from '~/lib/Products/BalancingCollectorWithHydroarrowProduct'
-import PipePart from "~/components/Constructor/Parts/PipePart.vue";
+import PipePart from '~/components/Constructor/Parts/PipePart.vue'
 
 defineOptions({
     name: 'BalancingCollector',

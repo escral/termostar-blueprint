@@ -38,7 +38,7 @@ import { useHydroarrow } from '~/composables/useHydroarrow'
 import type { HydroarrowPart } from '~/lib/Parts/HydroarrowPart'
 
 defineOptions({
-    name: 'HydroarrowPart',
+    name: 'HydroarrowElement',
 })
 
 const props = defineProps<{
