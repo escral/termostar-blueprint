@@ -90,25 +90,36 @@ Editable domain objects:
 
 - BlueprintSpec
 - ProductSpec
-- AssemblySpec (discriminated union by `type`)
+- AssemblySpec (typed via **type → params map**, not a large union)
 
 Specs are the only objects mutated by UI.
 
-Example conceptual shape:
+#### AssemblySpec (Option A: Type → Params Map)
+
+Instead of a discriminated union, we model assemblies using:
+- a finite set of `AssemblyType` strings
+- a `AssemblyParamsByType` mapping
+- a generic `AssemblySpec<T>`
+
+Conceptual shape:
 
 ```ts
-type AssemblySpec =
-    | {
-    id: string;
-    type: "Hydroarrow";
-    params: { ... }
+type AssemblyType = "Hydroarrow" | "MainJoin"
+
+type AssemblyParamsByType = {
+  Hydroarrow: { /* ... */ }
+  MainJoin: { /* ... */ }
 }
-    | {
-    id: string;
-    type: "MainJoin";
-    params: { ... }
+
+type AssemblySpec<T extends AssemblyType = AssemblyType> = {
+  id: string
+  type: T
+  params: AssemblyParamsByType[T]
 }
 ```
+
+This keeps specs as plain serializable objects, avoids a growing union definition,
+and still provides strong typing for params per assembly type.
 
 ---
 
