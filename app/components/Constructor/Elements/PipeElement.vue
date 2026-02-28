@@ -1,24 +1,18 @@
 <template>
-    <svg
+    <ElementWrapper
         :x="x"
         :y="y"
         :width="width"
         :height="totalHeight"
+        :pivot="pivot"
+        :rotate="rotate"
     >
         <ThreadElement
             v-if="topThreadLengthMm > 0"
-            :spec="{
-                width: props.spec.diameter,
-                length: topThreadLengthMm
-            }"
+            :width="spec.diameter"
+            :length="topThreadLengthMm"
         />
         <g :style="`transform: translateY(${topThreadOffset}px)`">
-            <path
-                v-if="insulation"
-                class="stroke insulation"
-                fill-rule="evenodd"
-                :d="'M0,0 H' + width + ' V' + bodyHeight + ' H0 Z ' + cap(insulation)"
-            />
             <path
                 v-if="insulation && thickness"
                 class="stroke"
@@ -35,35 +29,44 @@
                 class="stroke"
                 :d="cap(thickness)"
             />
+            <path
+                v-if="insulation"
+                class="stroke insulation"
+                fill-rule="evenodd"
+                :d="'M0,0 H' + width + ' V' + bodyHeight + ' H0 Z ' + cap(insulation)"
+            />
         </g>
         <ThreadElement
             v-if="bottomThreadLengthMm > 0"
-            :spec="{
-                width: props.spec.diameter,
-                length: bottomThreadLengthMm
-            }"
+            :width="spec.diameter"
+            :length="bottomThreadLengthMm"
             :y="topThreadOffset + bodyHeight"
         />
-    </svg>
+    </ElementWrapper>
 </template>
 
 <script setup lang="ts">
 import type { PipeSpec } from '~/lib/Specs/PipeSpec'
 import { mmToUnits } from '~/utils/UnitsHelper'
 import ThreadElement from '~/components/Constructor/Elements/ThreadElement.vue'
+import ElementWrapper from '~/components/Constructor/ElementWrapper.vue'
 
 defineOptions({
     name: 'PipeElement',
 })
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     spec: PipeSpec
     x?: number
     y?: number
-}>()
-
-const x = computed(() => props.x ?? 0)
-const y = computed(() => props.y ?? 0)
+    rotate?: number
+    pivot?: 'center' | 'top' | 'bottom'
+}>(), {
+    x: 0,
+    y: 0,
+    rotate: 0,
+    pivot: undefined,
+})
 
 // Dimensions in mm (source of truth)
 const widthMm = computed(() => props.spec.diameter + props.spec.insulation * 2)

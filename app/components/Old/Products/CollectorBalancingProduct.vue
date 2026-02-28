@@ -503,7 +503,7 @@
                                                v-show="!(isCompact && $i == 0)"
                                                type="number" style="width: 44px"/>
 
-                                        <div style="height:22px" class="cursor-default"  :data-hover="'circuit' + $i + '-input-before'"
+                                        <div style="height:22px" class="cursor-default" :data-hover="'circuit' + $i + '-input-before'"
                                              v-show="(isCompact && $i == 0)">
                                             {{ circuit.distance.before }} <span
                                             style="font-size: 80%;">{{ __('мм') }}</span>
@@ -706,25 +706,25 @@
 
                 <!--End Helpers -->
                 <g :transform="'translate(' + (bodyEndX) + ' ' + (topJoin - bodyInsulation) + ')'">
-<!--                    <g v-show="element.endJoin.top.enabled && element.endJoin.bottom.enabled"-->
-<!--                       transform="translate(0 0)" style="pointer-events: none">-->
-<!--                        &lt;!&ndash; Horizontal &ndash;&gt;-->
-<!--                        <line class="helper-line"-->
-<!--                              x1="0" :y1="(bodyHeightInner - endCenterGap) / 2"-->
-<!--                              x2="70" :y2="(bodyHeightInner - endCenterGap) / 2"></line>-->
-<!--                        <line class="helper-line"-->
-<!--                              x1="0" :y1="(bodyHeightInner + endCenterGap) / 2"-->
-<!--                              x2="70" :y2="(bodyHeightInner + endCenterGap) / 2"></line>-->
+                    <!--                    <g v-show="element.endJoin.top.enabled && element.endJoin.bottom.enabled"-->
+                    <!--                       transform="translate(0 0)" style="pointer-events: none">-->
+                    <!--                        &lt;!&ndash; Horizontal &ndash;&gt;-->
+                    <!--                        <line class="helper-line"-->
+                    <!--                              x1="0" :y1="(bodyHeightInner - endCenterGap) / 2"-->
+                    <!--                              x2="70" :y2="(bodyHeightInner - endCenterGap) / 2"></line>-->
+                    <!--                        <line class="helper-line"-->
+                    <!--                              x1="0" :y1="(bodyHeightInner + endCenterGap) / 2"-->
+                    <!--                              x2="70" :y2="(bodyHeightInner + endCenterGap) / 2"></line>-->
 
-<!--                        &lt;!&ndash; Vertical &ndash;&gt;-->
-<!--                        <line class="helper-line" data-hover="end-join-input"-->
-<!--                              x1="70" :y1="(bodyHeightInner - endCenterGap) / 2"-->
-<!--                              x2="70" :y2="(bodyHeightInner + endCenterGap) / 2"></line>-->
+                    <!--                        &lt;!&ndash; Vertical &ndash;&gt;-->
+                    <!--                        <line class="helper-line" data-hover="end-join-input"-->
+                    <!--                              x1="70" :y1="(bodyHeightInner - endCenterGap) / 2"-->
+                    <!--                              x2="70" :y2="(bodyHeightInner + endCenterGap) / 2"></line>-->
 
-<!--                        &lt;!&ndash; Intersections &ndash;&gt;-->
-<!--                        <intersection-helper hover="end-join-input" :x="70" :y="(bodyHeightInner - endCenterGap) / 2"/>-->
-<!--                        <intersection-helper hover="end-join-input" :x="70" :y="(bodyHeightInner + endCenterGap) / 2"/>-->
-<!--                    </g>-->
+                    <!--                        &lt;!&ndash; Intersections &ndash;&gt;-->
+                    <!--                        <intersection-helper hover="end-join-input" :x="70" :y="(bodyHeightInner - endCenterGap) / 2"/>-->
+                    <!--                        <intersection-helper hover="end-join-input" :x="70" :y="(bodyHeightInner + endCenterGap) / 2"/>-->
+                    <!--                    </g>-->
                     <g v-show="element.endJoin.top.enabled && element.endJoin.bottom.enabled"
                        transform="translate(0 0)" style="pointer-events: none">
                         <!-- Horizontal -->
@@ -824,7 +824,7 @@ import JoinerPart from '../Parts/JoinerPart'
 import IntersectionHelper from '../Parts/IntersectionHelper'
 import ArrowHelper from '../Parts/ArrowHelper'
 
-import {mmToUnits, unitsToMm} from '../Units'
+import { mmToUnits, unitsToMm } from '../Units'
 
 export default {
     name: "CollectorBalancingProduct",

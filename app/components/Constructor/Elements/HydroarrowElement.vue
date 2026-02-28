@@ -1,115 +1,60 @@
 <template>
-    <svg
-        :viewBox="'0 0 ' + width + ' ' + height"
+    <ElementWrapper
         :width="width"
         :height="height"
-        :x="x"
-        :y="y"
     >
-        <path
-            v-if="insulation"
-            class="stroke insulation"
-            fill-rule="evenodd"
-            :d="'M0,0 H' + width + ' V' + height + ' H0 Z ' + cap(insulation)"
-        />
-        <path
-            v-if="insulation && thickness"
-            class="stroke"
-            fill-rule="evenodd"
-            :d="'M0,0 H' + width + ' V' + height + ' H0 Z ' + cap(insulation + thickness)"
-        />
-        <path
-            v-if="! insulation"
-            class="stroke"
-            :d="cap(0)"
-        />
-        <path
-            v-if="! insulation && thickness"
-            class="stroke"
-            :d="cap(thickness)"
-        />
+        <PipeElement :spec="spec" />
 
-        <slot />
-    </svg>
+        <g v-hover="'hydroarrow-joiner'">
+            <PipeElement
+                :spec="spec.mainJoin.top"
+                :x="spec.insulation"
+                :y="mmToUnits(spec.thermowellJoin.top.y)"
+                pivot="bottom"
+                :rotate="-90"
+            />
+            <PipeElement
+                :spec="spec.mainJoin.bottom"
+                :x="spec.insulation"
+                :y="mmToUnits(spec.thermowellJoin.bottom.y)"
+                pivot="bottom"
+                :rotate="-90"
+            />
+        </g>
+        <g v-hover="'hydroarrow-center'">
+            <ThermowellElement
+                :element="spec.thermowells.top"
+                :x="mmToUnits(spec.thermowellJoin.top.x)"
+                :y="mmToUnits(spec.thermowellJoin.top.y)"
+            />
+            <ThermowellElement
+                :element="spec.thermowells.bottom"
+                :x="mmToUnits(spec.thermowellJoin.bottom.x)"
+                :y="mmToUnits(spec.thermowellJoin.bottom.y)"
+            />
+        </g>
+    </ElementWrapper>
 </template>
 
 <script setup lang="ts">
-import { useHydroarrow } from '~/composables/useHydroarrow'
 import type { HydroarrowSpec } from '~/lib/Specs/HydroarrowSpec'
+import ThermowellElement from '~/components/Constructor/Elements/ThermowellElement.vue'
+import PipeElement from '~/components/Constructor/Elements/PipeElement.vue'
+import ElementWrapper from '~/components/Constructor/ElementWrapper.vue'
 
 defineOptions({
     name: 'HydroarrowElement',
 })
 
 const props = defineProps<{
-    element: HydroarrowSpec
+    spec: HydroarrowSpec
 }>()
 
-//
-
-const data = computed(() => useHydroarrow(props.element))
-
-//
-
 const width = computed(() => {
-    return mmToUnits(data.value.dimentions.value.fullDiameter)
+    return mmToUnits(props.spec.fullDiameter)
 })
 
 const height = computed(() => {
-    return mmToUnits(data.value.dimentions.value.fullLength)
+    return mmToUnits(props.spec.fullLength)
 })
-
-const x = computed(() => {
-    return -mmToUnits(data.value.element.insulation)
-})
-
-const y = computed(() => {
-    return -mmToUnits(data.value.element.insulation)
-})
-
-const insulation = computed(() => {
-    return mmToUnits(data.value.element.insulation)
-})
-
-const thickness = computed(() => {
-    return mmToUnits(data.value.element.thickness)
-})
-
-//
-
-function cap(offset = 0) {
-    return data.value.element.rounded ? roundCap(offset) : squareCap(offset)
-}
-
-function roundCap(offset = 0) {
-    const br = borderRadius(width.value - offset * 2)
-
-    const h = height.value
-    const w = width.value
-
-    return 'M' + (offset) + ',' + (offset + br) +
-        ' Q ' + (offset) + ',' + (offset) + ' ' +
-        +(offset + br) + ',' + (offset) +
-        ' H ' + (w - offset - br) +
-        ' Q ' + (w - offset) + ',' + (offset) + ' ' +
-        +(w - offset) + ',' + (offset + br) +
-        ' V ' + (h - offset - br) +
-        ' Q ' + (w - offset) + ',' + (h - offset) + ' ' +
-        +(w - offset - br) + ',' + (h - offset) +
-        ' H ' + (offset + br) +
-        ' Q ' + (offset) + ',' + (h - offset) + ' ' +
-        +(offset) + ',' + (h - offset - br) +
-        ' Z'
-}
-
-function squareCap(offset = 0) {
-    const h = height.value
-    const w = width.value
-
-    return 'M' + offset + ',' + offset + ' H' + (w - offset) + ' V' + (h - offset) + ' H' + (offset) + ' Z'
-}
-
-function borderRadius(width: number) {
-    return Math.round((width / 2.3) / 2) * 2
-}
 </script>

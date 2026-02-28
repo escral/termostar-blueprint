@@ -26,27 +26,26 @@ defineOptions({
     name: 'ThreadElement',
 })
 
-const TARGET_LINE_SPACING_MM = 4
-
 const props = defineProps<{
-    spec: {
-        width: number
-        length: number
-    }
+    width: number
+    length: number
     x?: number
     y?: number
 }>()
 
+const TARGET_LINE_SPACING_MM = 4
+
 const x = computed(() => props.x ?? 0)
 const y = computed(() => props.y ?? 0)
 
-const width = computed(() => mmToUnits(props.spec.width))
-const length = computed(() => mmToUnits(props.spec.length))
+const width = computed(() => mmToUnits(props.width))
+const length = computed(() => mmToUnits(props.length))
 
 // Distribute thread lines evenly: target ~4mm spacing, then recalc for exact fit
 const lineCount = computed(() => {
     const targetGap = mmToUnits(TARGET_LINE_SPACING_MM)
     const segmentCount = Math.floor(length.value / targetGap)
+
     return Math.max(0, segmentCount - 1)
 })
 

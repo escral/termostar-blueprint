@@ -1,4 +1,4 @@
-import { PipeSpec } from '~/lib/Specs/PipeSpec'
+import { type PipeEnd, PipeSpec } from '~/lib/Specs/PipeSpec'
 import { ThermowellSpec } from '~/lib/Specs/ThermowellSpec'
 import JoinPoint from '~/lib/Points/JoinPoint'
 import { HydroarrowMainJoinSpec } from '~/lib/Specs/HydroarrowMainJoinSpec'
@@ -25,12 +25,13 @@ export class HydroarrowSpec extends PipeSpec {
         return true
     }
 
-    public get fullDiameter() {
-        return this.diameter + this.insulation * 2
-    }
-
-    public get fullLength() {
-        return this.length + this.insulation * 2
+    public override ends: Record<'top' | 'bottom', PipeEnd> = {
+        top: {
+            type: 'covered',
+        },
+        bottom: {
+            type: 'covered',
+        },
     }
 
     public thermowells = {

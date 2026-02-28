@@ -14,6 +14,14 @@ export abstract class PipeSpec {
     public abstract thickness: number
     public abstract rounded: boolean
 
+    public get fullDiameter() {
+        return this.diameter + this.insulation * 2
+    }
+
+    public get fullLength() {
+        return this.length + this.insulation * 2
+    }
+
     public get area() {
         if (this.rounded) {
             const radius = this.diameter / 2
