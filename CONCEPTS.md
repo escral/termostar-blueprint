@@ -3,6 +3,7 @@
 This document defines the core architecture and data flow for the blueprint generator.
 
 Goals:
+
 - Separate **domain** (pure TypeScript) from **render/UI** (Vue + SVG).
 - Keep **assemblies editable** and **parts physical**.
 - Render **top-down only (2D)**.
@@ -17,6 +18,7 @@ Goals:
 Pure data + pure functions. No Vue. No SVG.
 
 Responsibilities:
+
 - Define part types (geometry, ports, measures).
 - Define assembly specs (editable configuration).
 - Resolve specs into concrete part instances + placement plan.
@@ -27,6 +29,7 @@ Responsibilities:
 Renders **resolved parts only**.
 
 Responsibilities:
+
 - Display SVG for parts.
 - Handle interaction (selection, hover).
 - Provide UI forms to edit specs.
@@ -95,8 +98,16 @@ Example conceptual shape:
 
 ```ts
 type AssemblySpec =
-  | { id: string; type: "Hydroarrow"; params: {...} }
-  | { id: string; type: "MainJoin"; params: {...} }
+    | {
+    id: string;
+    type: "Hydroarrow";
+    params: { ... }
+}
+    | {
+    id: string;
+    type: "MainJoin";
+    params: { ... }
+}
 ```
 
 ---
@@ -110,6 +121,7 @@ resolveBlueprint(spec: BlueprintSpec): ResolvedBlueprint
 ```
 
 Output:
+
 - Concrete PartInstance[]
 - 2D placement transforms
 - Optional warnings / metadata
@@ -144,6 +156,7 @@ Vue renders a list of RenderNodes.
 We do not implement a constraint solver.
 
 Instead:
+
 - Assemblies compute placement deterministically.
 - Use simple layout strategies:
     - Chain placement (A → B → C)
@@ -157,6 +170,7 @@ Instead:
 Each PartDefinition exposes named ports in 2D:
 
 Examples:
+
 - inletCenter
 - outletCenter
 - boltCircleCenter
@@ -164,12 +178,114 @@ Examples:
 Ports are local coordinates relative to part origin.
 
 Assemblies use ports to compute transforms:
+
 - Coincide two ports
 - Align axis
 - Apply offset
 - Apply rotation
 
 No general solver — just deterministic math.
+
+## 4.2 SVG Grouping (Layers)
+
+The SVG output should be organized into explicit `<g>` layers. This improves:
+
+- Debuggability (inspect/show/hide layers in devtools)
+- Performance (update only affected layers)
+- Feature toggles (e.g. “show dimensions”)
+- Export control (blueprint-only vs blueprint + annotations)
+
+Recommended top-level structure:
+
+```svg
+
+<svg>
+    <g id="layer-geometry">...</g>        <!-- main part outlines -->
+    <g id="layer-dimensions">...</g>      <!-- dimension lines, arrows -->
+    <g id="layer-labels">...</g>          <!-- text labels, port captions -->
+    <g id="layer-debug">...</g>           <!-- optional: ports, anchors, bbox -->
+</svg>
+```
+
+### Layer Rules
+
+- Each RenderNode should declare a `layer`.
+- The renderer routes nodes into the correct `<g>`.
+- Styling should be centralized per-layer (e.g. dimension stroke style).
+- UI controls must not live inside SVG (`foreignObject` is discouraged).
+- HTML UI should be rendered in a separate overlay layer.
+
+Example RenderNode extension:
+
+```ts
+type RenderNode = {
+    id: string
+    partType: string
+    params: unknown
+    transform2d: {
+        x: number;
+        y: number;
+        rotation: number
+    }
+    layer?: "geometry" | "insulation" | "dimensions" | "labels" | "debug"
+    hoverGroup?: string
+}
+```
+
+## 4.3 Interaction Groups (Hover Linking)
+
+UI controls and blueprint elements may belong to the same **interaction group**.
+
+This enables symmetric highlighting:
+
+- Hovering a UI control highlights related blueprint elements.
+- Hovering a blueprint element highlights related UI controls.
+
+### Concept
+
+Each renderable entity may declare:
+
+```ts
+type RenderNode = {
+    // ... other props
+    hoverGroup?: string
+}
+```
+
+UI controls may also declare:
+
+```ts
+type UiControl = {
+    // ... other props
+    hoverGroup?: string
+}
+```
+
+A single central state controls interaction:
+
+```ts
+const interactionState = reactive({
+    hoveredGroup: null as string | null
+})
+```
+
+Highlighting rule:
+
+- If `node.hoverGroup === hoveredGroup` → apply highlight style.
+- If `control.hoverGroup === hoveredGroup` → apply highlight style.
+
+### Rules
+
+- Hover is state-driven, not DOM-driven.
+- No direct element scanning or mutation.
+- SVG and HTML layers remain decoupled.
+- Groups are semantic (e.g. `"contour-3"`, `"left-inlet"`), not visual.
+
+This pattern allows future extensions:
+
+- `selectedGroup`
+- `editingGroup`
+- `warningGroup`
 
 ---
 
@@ -217,10 +333,12 @@ Stable IDs are required for:
 - SVG element consistency
 
 Rules:
+
 - Every AssemblySpec has an `id`.
 - PartInstance IDs derive from assembly ID:
 
 Example:
+
 ```
 "${assemblyId}:${localPartKey}"
 ```
@@ -232,9 +350,11 @@ Example:
 We do not support versioned long-term spec compatibility.
 
 Canonical artifact:
+
 - Exported SVG.
 
 If future versions break spec compatibility:
+
 - Previously exported SVG remains reference output.
 
 Spec persistence is best-effort within current app version only.
@@ -244,11 +364,13 @@ Spec persistence is best-effort within current app version only.
 ## 8. Module Boundaries
 
 Domain must not:
+
 - Import Vue
 - Use reactive state
 - Access rendering code
 
 Render layer must not:
+
 - Implement domain logic
 - Decide part types
 - Compute placement
