@@ -1,7 +1,7 @@
 import type { SelectOption } from '~/types/SelectOption'
-import type { HydroarrowDiameter, HydroarrowPart } from '~/lib/Parts/HydroarrowPart'
+import type { HydroarrowDiameter, HydroarrowElement } from '~/lib/Elements/HydroarrowElement'
 
-export function useHydroarrow(hydroarrow: HydroarrowPart) {
+export function useHydroarrow(hydroarrow: HydroarrowElement) {
     const sizeOptions = computed<SelectOption<HydroarrowDiameter>[]>(() => [
         { value: 120, title: 'Ø120' },
         { value: 159, title: 'Ø159' },
@@ -20,7 +20,7 @@ export function useHydroarrow(hydroarrow: HydroarrowPart) {
     })
 
     return {
-        part: hydroarrow,
+        element: hydroarrow,
         sizeOptions,
         dimentions,
     }

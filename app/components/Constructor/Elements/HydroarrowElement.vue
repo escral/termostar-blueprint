@@ -35,19 +35,19 @@
 
 <script setup lang="ts">
 import { useHydroarrow } from '~/composables/useHydroarrow'
-import type { HydroarrowPart } from '~/lib/Parts/HydroarrowPart'
+import type { HydroarrowElement } from '~/lib/Elements/HydroarrowElement'
 
 defineOptions({
     name: 'HydroarrowElement',
 })
 
 const props = defineProps<{
-    part: HydroarrowPart
+    element: HydroarrowElement
 }>()
 
 //
 
-const data = computed(() => useHydroarrow(props.part))
+const data = computed(() => useHydroarrow(props.element))
 
 //
 
@@ -60,25 +60,25 @@ const height = computed(() => {
 })
 
 const x = computed(() => {
-    return -mmToUnits(data.value.part.insulation)
+    return -mmToUnits(data.value.element.insulation)
 })
 
 const y = computed(() => {
-    return -mmToUnits(data.value.part.insulation)
+    return -mmToUnits(data.value.element.insulation)
 })
 
 const insulation = computed(() => {
-    return mmToUnits(data.value.part.insulation)
+    return mmToUnits(data.value.element.insulation)
 })
 
 const thickness = computed(() => {
-    return mmToUnits(data.value.part.thickness)
+    return mmToUnits(data.value.element.thickness)
 })
 
 //
 
 function cap(offset = 0) {
-    return data.value.part.rounded ? roundCap(offset) : squareCap(offset)
+    return data.value.element.rounded ? roundCap(offset) : squareCap(offset)
 }
 
 function roundCap(offset = 0) {

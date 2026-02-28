@@ -7,19 +7,17 @@
 </template>
 
 <script setup lang="ts">
+import type { PipeElement } from '~/lib/Elements/PipeElement'
+
 defineOptions({
     name: 'PipePart',
 })
 
-const props = withDefaults(defineProps<{
-    diameter: number
-    length: number
-    thickness: number
-}>(), {
-    thickness: 5,
-})
+const props = defineProps<{
+    element: PipeElement
+}>()
 
-const diameter = computed(() => mmToUnits(props.diameter))
-const length = computed(() => mmToUnits(props.length))
-const thickness = computed(() => mmToUnits(props.thickness))
+const diameter = computed(() => mmToUnits(props.element.diameter))
+const length = computed(() => mmToUnits(props.element.length))
+const thickness = computed(() => mmToUnits(props.element.thickness))
 </script>

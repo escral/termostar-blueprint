@@ -14,22 +14,22 @@
         >
             <InsulationDefs />
 
-            <HydroarrowElement v-hover="'hydroarrow-part'" :part="collector.hydroarrow">
+            <HydroarrowElement v-hover="'hydroarrow-part'" :element="collector.hydroarrow">
                 <g v-hover="'hydroarrow-joiner'">
                     <PipePart
-                        :part="collector.hydroarrow.mainJoin.top"
+                        :element="collector.hydroarrow.mainJoin.top"
                         :x="0"
                         :y="mmToUnits(collector.hydroarrow.join.top.y)"
                     />
                 </g>
                 <g v-hover="'hydroarrow-center'">
                     <ThermowellElement
-                        :part="collector.hydroarrow.thermowells.top"
+                        :element="collector.hydroarrow.thermowells.top"
                         :x="mmToUnits(collector.hydroarrow.join.top.x)"
                         :y="mmToUnits(collector.hydroarrow.join.top.y)"
                     />
                     <ThermowellElement
-                        :part="collector.hydroarrow.thermowells.bottom"
+                        :element="collector.hydroarrow.thermowells.bottom"
                         :x="mmToUnits(collector.hydroarrow.join.bottom.x)"
                         :y="mmToUnits(collector.hydroarrow.join.bottom.y)"
                     />

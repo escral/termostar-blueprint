@@ -6,23 +6,23 @@
 </template>
 
 <script setup lang="ts">
-import type { ThermowellPart } from '~/lib/Parts/ThermowellPart'
+import type { ThermowellElement } from '~/lib/Elements/ThermowellElement'
 
 defineOptions({
     name: 'ThermowellElement',
 })
 
 const props = defineProps<{
-    part: ThermowellPart
+    element: ThermowellElement
     x: number | string
     y: number | string
 }>()
 
 const diameter = computed(() => {
-    return mmToUnits(props.part.diameter)
+    return mmToUnits(props.element.diameter)
 })
 
 const innerDiameter = computed(() => {
-    return mmToUnits(props.part.diameter) - 3
+    return mmToUnits(props.element.diameter) - 3
 })
 </script>
