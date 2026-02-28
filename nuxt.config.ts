@@ -19,14 +19,6 @@ export default defineNuxtConfig({
     },
 
     css: [
-        '~/assets/css/index.pcss',
+        '~/assets/styles/index.pcss',
     ],
-
-    // postcss: {
-    //     plugins: {
-    //         'tailwindcss/nesting': {},
-    //         tailwindcss: {},
-    //         autoprefixer: {},
-    //     },
-    // },
 })
