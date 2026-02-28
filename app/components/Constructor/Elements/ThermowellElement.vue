@@ -6,14 +6,14 @@
 </template>
 
 <script setup lang="ts">
-import type { ThermowellElement } from '~/lib/Elements/ThermowellElement'
+import type { ThermowellSpec } from '~/lib/Specs/ThermowellSpec'
 
 defineOptions({
     name: 'ThermowellElement',
 })
 
 const props = defineProps<{
-    element: ThermowellElement
+    element: ThermowellSpec
     x: number | string
     y: number | string
 }>()

@@ -1,11 +1,11 @@
-import { PipeElement } from '~/lib/Elements/PipeElement'
-import { ThermowellElement } from '~/lib/Elements/ThermowellElement'
-import HydroarrowJoinPoint from '~/lib/Points/HydroarrowJoinPoint'
-import { HydroarrowMainJoinElement } from '~/lib/Elements/HydroarrowMainJoinElement'
+import { PipeSpec } from '~/lib/Specs/PipeSpec'
+import { ThermowellSpec } from '~/lib/Specs/ThermowellSpec'
+import JoinPoint from '~/lib/Points/JoinPoint'
+import { HydroarrowMainJoinSpec } from '~/lib/Specs/HydroarrowMainJoinSpec'
 
 export type HydroarrowDiameter = 120 | 159 | 219
 
-export class HydroarrowElement extends PipeElement {
+export class HydroarrowSpec extends PipeSpec {
     public constructor(
         public diameter: HydroarrowDiameter,
         public length: number,
@@ -34,23 +34,23 @@ export class HydroarrowElement extends PipeElement {
     }
 
     public thermowells = {
-        top: new ThermowellElement(),
-        bottom: new ThermowellElement(),
+        top: new ThermowellSpec(),
+        bottom: new ThermowellSpec(),
     }
 
-    public join = {
-        top: new HydroarrowJoinPoint(
+    public thermowellJoin = {
+        top: new JoinPoint(
             () => this.fullDiameter / 2,
             () => this.fullLength / 2 - 130,
         ),
-        bottom: new HydroarrowJoinPoint(
+        bottom: new JoinPoint(
             () => this.fullDiameter / 2,
             () => this.fullLength / 2 + 130,
         ),
     }
 
     public mainJoin = {
-        top: new HydroarrowMainJoinElement(),
-        bottom: new HydroarrowMainJoinElement(),
+        top: new HydroarrowMainJoinSpec(),
+        bottom: new HydroarrowMainJoinSpec(),
     }
 }

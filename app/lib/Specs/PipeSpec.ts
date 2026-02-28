@@ -1,4 +1,13 @@
-export abstract class PipeElement {
+export type PipeEnd = {
+    type: 'thread',
+    length: number
+} | {
+    type: 'cut',
+} | {
+    type: 'covered'
+}
+
+export abstract class PipeSpec {
     public abstract diameter: number
     public abstract length: number
     public abstract insulation: number
@@ -13,5 +22,15 @@ export abstract class PipeElement {
         } else {
             return this.diameter * this.diameter
         }
+    }
+
+    public ends: Record<'top' | 'bottom', PipeEnd> = {
+        top: {
+            type: 'thread',
+            length: 33,
+        },
+        bottom: {
+            type: 'cut',
+        },
     }
 }

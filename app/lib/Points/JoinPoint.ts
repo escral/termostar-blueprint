@@ -1,6 +1,6 @@
 import Point from '~/lib/Points/Point'
 
-export default class HydroarrowJoinPoint extends Point {
+export default class JoinPoint extends Point {
     public constructor(
         protected _x: number | (() => number),
         protected _y: number | (() => number),

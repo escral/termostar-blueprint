@@ -9,29 +9,31 @@
         <svg
             xmlns="http://www.w3.org/2000/svg"
             :viewBox="'0 0 400 ' + maxHeight"
-            class="overflow-visible ml-[300px] w-[400px] h-[400px]"
+            :width="400"
+            :height="maxHeight"
+            class="overflow-visible ml-[300px]"
             fill="#FFF"
         >
             <InsulationDefs />
 
             <HydroarrowElement v-hover="'hydroarrow-part'" :element="collector.hydroarrow">
                 <g v-hover="'hydroarrow-joiner'">
-                    <PipePart
-                        :element="collector.hydroarrow.mainJoin.top"
-                        :x="0"
-                        :y="mmToUnits(collector.hydroarrow.join.top.y)"
+                    <PipeElement
+                        :spec="collector.hydroarrow.mainJoin.top"
+                        :x="-100"
+                        :y="mmToUnits(collector.hydroarrow.thermowellJoin.top.y)"
                     />
                 </g>
                 <g v-hover="'hydroarrow-center'">
                     <ThermowellElement
                         :element="collector.hydroarrow.thermowells.top"
-                        :x="mmToUnits(collector.hydroarrow.join.top.x)"
-                        :y="mmToUnits(collector.hydroarrow.join.top.y)"
+                        :x="mmToUnits(collector.hydroarrow.thermowellJoin.top.x)"
+                        :y="mmToUnits(collector.hydroarrow.thermowellJoin.top.y)"
                     />
                     <ThermowellElement
                         :element="collector.hydroarrow.thermowells.bottom"
-                        :x="mmToUnits(collector.hydroarrow.join.bottom.x)"
-                        :y="mmToUnits(collector.hydroarrow.join.bottom.y)"
+                        :x="mmToUnits(collector.hydroarrow.thermowellJoin.bottom.x)"
+                        :y="mmToUnits(collector.hydroarrow.thermowellJoin.bottom.y)"
                     />
                 </g>
             </HydroarrowElement>
@@ -44,7 +46,7 @@ import HydroarrowElement from '~/components/Constructor/Elements/HydroarrowEleme
 import ThermowellElement from '~/components/Constructor/Elements/ThermowellElement.vue'
 import InsulationDefs from '~/components/Constructor/InsulationDefs.vue'
 import type BalancingCollectorWithHydroarrowProduct from '~/lib/Products/BalancingCollectorWithHydroarrowProduct'
-import PipePart from '~/components/Constructor/Parts/PipePart.vue'
+import PipeElement from '~/components/Constructor/Elements/PipeElement.vue'
 
 defineOptions({
     name: 'BalancingCollector',

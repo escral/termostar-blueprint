@@ -1,8 +1,8 @@
-import { HydroarrowElement } from '~/lib/Elements/HydroarrowElement'
+import { HydroarrowSpec } from '~/lib/Specs/HydroarrowSpec'
 import Product from '~/lib/Products/Product'
 
 export default class BalancingCollectorWithHydroarrowProduct extends Product {
-    public hydroarrow = new HydroarrowElement(
+    public hydroarrow = new HydroarrowSpec(
         120,
         560,
     )

@@ -35,14 +35,14 @@
 
 <script setup lang="ts">
 import { useHydroarrow } from '~/composables/useHydroarrow'
-import type { HydroarrowElement } from '~/lib/Elements/HydroarrowElement'
+import type { HydroarrowSpec } from '~/lib/Specs/HydroarrowSpec'
 
 defineOptions({
     name: 'HydroarrowElement',
 })
 
 const props = defineProps<{
-    element: HydroarrowElement
+    element: HydroarrowSpec
 }>()
 
 //
