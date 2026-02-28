@@ -15,6 +15,13 @@
             <InsulationDefs />
 
             <HydroarrowPart v-hover="'hydroarrow-part'" :part="collector.hydroarrow">
+                <g v-hover="'hydroarrow-joiner'">
+                    <PipePart
+                        :part="collector.hydroarrow.mainJoin.top"
+                        :x="0"
+                        :y="mmToUnits(collector.hydroarrow.join.top.y)"
+                    />
+                </g>
                 <g v-hover="'hydroarrow-center'">
                     <ThermowellPart
                         :part="collector.hydroarrow.thermowells.top"
@@ -37,6 +44,7 @@ import HydroarrowPart from '~/components/Constructor/Parts/HydroarrowPart.vue'
 import ThermowellPart from '~/components/Constructor/Parts/ThermowellPart.vue'
 import InsulationDefs from '~/components/Constructor/InsulationDefs.vue'
 import type BalancingCollectorWithHydroarrowProduct from '~/lib/Products/BalancingCollectorWithHydroarrowProduct'
+import PipePart from "~/components/Constructor/Parts/PipePart.vue";
 
 defineOptions({
     name: 'BalancingCollector',

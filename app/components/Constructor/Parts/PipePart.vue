@@ -1,13 +1,10 @@
 <template>
-    <svg
-        viewBox="0 0 9 9"
-        width="9"
-        height="9"
+    <rect
         class="element"
-    >
-        <circle r="6" class="stroke" />
-        <circle r="9" class="stroke" />
-    </svg>
+        v-bind="$attrs"
+        :width="diameter"
+        :height="length"
+    />
 </template>
 
 <script setup lang="ts">
@@ -18,6 +15,11 @@ defineOptions({
 })
 
 const props = defineProps<{
-    part: PipePart
+    part: PipePart,
 }>()
+
+const diameter = computed(() => mmToUnits(props.part.diameter))
+const length = computed(() => mmToUnits(props.part.length))
+const thickness = computed(() => mmToUnits(props.part.thickness))
+const insulation = computed(() => props.part.insulation)
 </script>

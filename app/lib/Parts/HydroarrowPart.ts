@@ -1,6 +1,7 @@
 import { PipePart } from '~/lib/Parts/PipePart'
 import { ThermowellPart } from '~/lib/Parts/ThermowellPart'
 import HydroarrowJoinPoint from '~/lib/Points/HydroarrowJoinPoint'
+import { HydroarrowMainJoinPart } from '~/lib/Parts/HydroarrowMainJoinPart'
 
 export type HydroarrowDiameter = 120 | 159 | 219
 
@@ -31,7 +32,7 @@ export class HydroarrowPart extends PipePart {
     public get fullLength() {
         return this.length + this.insulation * 2
     }
-    
+
     public thermowells = {
         top: new ThermowellPart(),
         bottom: new ThermowellPart(),
@@ -46,5 +47,10 @@ export class HydroarrowPart extends PipePart {
             () => this.fullDiameter / 2,
             () => this.fullLength / 2 + 130,
         ),
+    }
+
+    public mainJoin = {
+        top: new HydroarrowMainJoinPart(),
+        bottom: new HydroarrowMainJoinPart(),
     }
 }
