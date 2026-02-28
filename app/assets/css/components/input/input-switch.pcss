@@ -1,0 +1,95 @@
+@layer components {
+    .input-switch {
+        position: relative;
+        cursor: pointer;
+
+        @apply outline-none appearance-none;
+
+        --tw-ring-color: var(--ring-color);
+        --switch-lever-padding: 2px;
+
+        width: calc(var(--switch-lever-size) * 2);
+        height: calc(var(--switch-lever-size) + var(--switch-lever-padding) * 2);
+        border-radius: 100rem;
+        background: var(--color);
+
+        @apply transition-colors duration-100;
+
+        /* Default colors */
+        --color: theme('colors.primary.dark');
+        --color-hover: theme('colors.primary.darker');
+        --ring-color: #400F2650;
+
+        &:disabled, &[readonly] {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        /* Lever */
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 100rem;
+            margin: var(--switch-lever-padding);
+            background: white;
+
+            width: var(--switch-lever-size);
+            height: var(--switch-lever-size);
+
+            @apply transition-transform duration-100;
+        }
+
+        &:checked {
+            /* Lever */
+            &::before {
+                transform: translateX(calc(var(--switch-lever-size) - var(--switch-lever-padding) * 2));
+            }
+        }
+
+        &:not(:checked) {
+            --color: theme('colors.gray.200');
+            --color-hover: theme('colors.gray.300');
+            --ring-color: theme('colors.gray.100');
+        }
+
+        &:focus, &[data-debug-focus] {
+            @apply ring-[3px];
+
+            --color: var(--color-hover);
+        }
+
+        &:hover, &[data-debug-hover] {
+            &:not(:disabled, &[readonly]) {
+                --color: var(--color-hover);
+            }
+        }
+
+        /* Sizes =========================== */
+
+        &.\--xs {
+            /* 16px */
+            --switch-lever-size: 1rem;
+        }
+
+        &, &.\--small { /* Default */
+            /* 20px */
+            --switch-lever-size: 1.25rem;
+        }
+
+        &.\--normal {
+            /* 24px */
+            --switch-lever-size: 1.5rem;
+        }
+
+        &.\--large {
+            /* 28px */
+            --switch-lever-size: 1.75rem;
+        }
+
+        &.\--xl {
+            /* 32px */
+            --switch-lever-size: 2rem;
+        }
+    }
+}

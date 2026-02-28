@@ -1,0 +1,126 @@
+@layer components {
+    .workspace {
+        --hover-color: yellowgreen;
+
+        font-size: 14px;
+
+        &__block {
+            display: block;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            text-align: center;
+            padding: 16px;
+
+            &.\--hover {
+                color: var(--hover-color);
+                border-color: var(--hover-color);
+            }
+        }
+
+        &__label {
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: 0 auto 4px;
+
+            .checkbox {
+                margin-left: 5px;
+            }
+        }
+
+        .\--hover {
+            .input-select {
+                outline: 2px solid yellowgreen;
+            }
+        }
+    }
+}
+
+.workspace {
+    svg {
+        font-size: 14px;
+        overflow: visible !important;
+        /*shape-rendering: auto;*/
+        /*shape-rendering: crispEdges;*/
+        stroke-miterlimit: 10;
+        stroke-linecap: square;
+        stroke-linejoin: miter;
+    }
+
+    text {
+        font-family: 'Raleway', Arial;
+        fill: #000;
+    }
+
+    .\--hoverable {
+        pointer-events: all;
+    }
+
+    .stroke, .cls-1 {
+        fill: none;
+        stroke: #1d71a2;
+        stroke-width: 1;
+    }
+
+    .stroke--filled {
+        fill: #fff;
+    }
+
+    .insulation {
+        fill: url(#insulation-pattern) !important;
+    }
+
+    .element rect, .element path {
+        fill: #fff;
+    }
+
+    .helper-line {
+        fill: none;
+        stroke: #CCC;
+        stroke-width: 1px;
+        pointer-events: none;
+    }
+
+    .helper-line-dashed {
+        fill: none;
+        stroke: #CCC;
+        stroke-width: 1px;
+        stroke-dasharray: 4;
+        stroke-dashoffset: 4;
+        pointer-events: none;
+    }
+
+    .\--hover path:not(.no-highlight), .\--hover line:not(.no-highlight), .\--hover polyline:not(.no-highlight), .\--hover rect:not(.no-highlight) {
+        stroke: yellowgreen !important;
+    }
+
+    .highlight-on-hover.\--hover {
+        color: yellowgreen;
+    }
+
+    #content .svg-exit--hot .\--hover *, #content .\--hover .svg-exit--hot * {
+        stroke: red !important;
+    }
+
+    #content .svg-exit--cold .\--hover *, #content .\--hover .svg-exit--cold * {
+        stroke: blue !important;
+    }
+
+    .helper-line.\--hover {
+        stroke: black;
+    }
+
+    foreignObject {
+        overflow: visible;
+    }
+
+    .svg-circuit {
+        text-align: center;
+    }
+
+    .svg-circuit:hover foreignObject {
+        outline: 0.5px solid #2FA3E5;
+    }
+}

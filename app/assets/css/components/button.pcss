@@ -1,0 +1,152 @@
+@layer components {
+    .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+        line-height: 1rem;
+        font-style: normal;
+
+        cursor: pointer;
+        border: 1px solid;
+        box-sizing: border-box;
+        border-radius: 3rem;
+        @apply transition duration-100;
+
+        --tw-ring-color: var(--ring-color);
+
+        /**
+         * Default styles
+         */
+
+        &, &.\--default {
+            --text-color-on-light: #141415;
+            --text-color-on-dark: theme('colors.white');
+
+            --text-color: var(--text-color-on-dark);
+            color: var(--text-color);
+            background: var(--color);
+            border-color: var(--color);
+        }
+
+        /**
+         * Sizes
+         * ===========================
+         */
+        &.\--small {
+            --size: var(--size-small);
+            height: var(--size);
+            padding: 1rem; /* 16px */
+            font-size: 0.825rem; /* 13px */
+            gap: 0.25rem;
+            border-radius: theme('borderRadius.btn-sm');
+        }
+
+        &, &.\--normal { /* Default */
+            --size: var(--size-normal);
+            height: var(--size);
+            padding: 1rem; /* 20px */
+            font-size: 0.875rem; /* 14px */
+            gap: 0.375rem;
+        }
+
+        &.\--large {
+            --size: var(--size-large);
+            height: var(--size);
+            padding: 1.25rem; /* 24px */
+            font-size: 0.9375rem; /* 15px */
+            gap: 0.5rem;
+        }
+
+        /**
+         * States
+         * ===========================
+         */
+
+        &:hover:not(:disabled,.\--no-hover) {
+            color: var(--text-color);
+            background: var(--color-hover);
+            border-color: var(--color-hover);
+        }
+
+        &:focus {
+            @apply ring-[3px] outline-none;
+
+            .dark & {
+            }
+        }
+
+        &:disabled {
+            /* --color: var(--color-disabled); */
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &.\--no-hover {
+            cursor: default;
+        }
+
+        /**
+         * Variants
+         * ===========================
+         */
+
+        &.\--only {
+            padding: 0;
+            width: var(--size);
+        }
+
+        &.\--rounded {
+            border-radius: 9999px;
+        }
+
+        /**
+         * Colors
+         * ===========================
+         */
+
+        &, &.\--primary { /* Default */
+            --color: theme('colors.primary.DEFAULT');
+            --color-lightest: theme('colors.primary.lighter');
+            --color-hover: theme('colors.primary.lighter');
+            --ring-color: theme('colors.primary.light');
+            --color-disabled: theme('colors.primary.light');
+        }
+
+        &.\--secondary {
+            --color: theme('colors.gray.200');
+            --color-lightest: theme('colors.gray.100');
+            --color-hover: theme('colors.gray.300');
+            --ring-color: theme('colors.gray.100');
+            --color-disabled: theme('colors.gray.100');
+        }
+
+        &.\--success {
+            --color: theme('colors.success.DEFAULT');
+            --color-lightest: theme('colors.success.lighter');
+            --color-hover: theme('colors.success.dark');
+            --ring-color: theme('colors.success.light');
+            --color-disabled: theme('colors.success.light');
+        }
+
+        &.\--white {
+            --color: #FFFFFF;
+            --color-lightest: #FFFFFF;
+            --color-hover: #F5F5F5;
+            --ring-color: #F5F5F5;
+            --color-disabled: #EEEEEE;
+            --text-color: var(--text-color-on-light);
+        }
+
+        /* ================ */
+
+        &.\--soft {
+            background-color: #dde4d9;
+            border-color: #dde4d9;
+            color: #458C1E !important;
+
+            --color-hover: #d6e0cd;
+        }
+    }
+}
