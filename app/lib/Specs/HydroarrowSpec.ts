@@ -15,15 +15,7 @@ export class HydroarrowSpec extends PipeSpec {
 
     public insulation: number = 20
     public thickness: number = 5
-
-    public get rounded() {
-        // noinspection RedundantIfStatementJS
-        if (this.diameter === 120) {
-            return false
-        }
-
-        return true
-    }
+    public rounded: boolean = false
 
     public override ends: Record<'top' | 'bottom', PipeEnd> = {
         top: {

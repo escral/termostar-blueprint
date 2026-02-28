@@ -16,7 +16,7 @@
         >
             <InsulationDefs />
 
-            <HydroarrowElement v-hover="'hydroarrow-part'" :spec="collector.hydroarrow" />
+            <HydroarrowElement :spec="collector.specs.hydroarrow" />
         </svg>
     </div>
 </template>
@@ -39,7 +39,7 @@ const props = defineProps<{
 //
 
 const maxHeight = computed(() => {
-    return mmToUnits(props.collector.hydroarrow.fullLength)
+    return mmToUnits(props.collector.specs.hydroarrow.fullLength)
 })
 
 // const bodyHeightInner = 100

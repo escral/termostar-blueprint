@@ -3,9 +3,11 @@
         :width="width"
         :height="height"
     >
-        <PipeElement :spec="spec" />
+        <HoverGroup group="hydroarrow-body">
+            <PipeElement :spec="spec" />
+        </HoverGroup>
 
-        <g v-hover="'hydroarrow-joiner'">
+        <HoverGroup group="hydroarrow-joiner">
             <PipeElement
                 :spec="spec.mainJoin.top"
                 :x="spec.insulation"
@@ -20,8 +22,9 @@
                 pivot="bottom"
                 :rotate="-90"
             />
-        </g>
-        <g v-hover="'hydroarrow-center'">
+        </HoverGroup>
+
+        <HoverGroup group="hydroarrow-thermowell">
             <ThermowellElement
                 :element="spec.thermowells.top"
                 :x="mmToUnits(spec.thermowellJoin.top.x)"
@@ -32,7 +35,7 @@
                 :x="mmToUnits(spec.thermowellJoin.bottom.x)"
                 :y="mmToUnits(spec.thermowellJoin.bottom.y)"
             />
-        </g>
+        </HoverGroup>
     </ElementWrapper>
 </template>
 
@@ -41,6 +44,7 @@ import type { HydroarrowSpec } from '~/lib/Specs/HydroarrowSpec'
 import ThermowellElement from '~/components/Constructor/Elements/ThermowellElement.vue'
 import PipeElement from '~/components/Constructor/Elements/PipeElement.vue'
 import ElementWrapper from '~/components/Constructor/ElementWrapper.vue'
+import HoverGroup from '~/components/Constructor/HoverGroup.vue'
 
 defineOptions({
     name: 'HydroarrowElement',
