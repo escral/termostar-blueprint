@@ -14,9 +14,17 @@ defineOptions({
 
 const props = defineProps<{
     element: ThermowellSpec
-    x: number | string
-    y: number | string
+    x: number
+    y: number
 }>()
+
+const x = computed(() => {
+    return mmToUnits(props.x)
+})
+
+const y = computed(() => {
+    return mmToUnits(props.y)
+})
 
 const diameter = computed(() => {
     return mmToUnits(props.element.diameter)

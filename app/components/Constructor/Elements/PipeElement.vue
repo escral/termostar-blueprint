@@ -2,8 +2,8 @@
     <ElementWrapper
         :x="x"
         :y="y"
-        :width="width"
-        :height="totalHeight"
+        :width="widthMm"
+        :height="totalHeightMm"
         :pivot="pivot"
         :rotate="rotate"
     >
@@ -86,8 +86,8 @@ const bodyHeightMm = computed(() =>
 // Display dimensions (converted to units)
 const width = computed(() => mmToUnits(widthMm.value))
 const bodyHeight = computed(() => mmToUnits(bodyHeightMm.value))
-const totalHeight = computed(() =>
-    mmToUnits(topThreadLengthMm.value) + bodyHeight.value + mmToUnits(bottomThreadLengthMm.value),
+const totalHeightMm = computed(() =>
+    topThreadLengthMm.value + bodyHeightMm.value + bottomThreadLengthMm.value,
 )
 
 const insulation = computed(() => mmToUnits(props.spec.insulation))

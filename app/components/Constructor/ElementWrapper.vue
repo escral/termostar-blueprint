@@ -7,11 +7,11 @@
         }"
     >
         <svg
-            :width="width"
-            :height="height"
+            :width="mmToUnits(width)"
+            :height="mmToUnits(height)"
             class="element"
-            :x="(x ?? 0) - anchor.x"
-            :y="(y ?? 0) - anchor.y"
+            :x="mmToUnits((x ?? 0) - anchor.x)"
+            :y="mmToUnits((y ?? 0) - anchor.y)"
         >
             <slot />
         </svg>

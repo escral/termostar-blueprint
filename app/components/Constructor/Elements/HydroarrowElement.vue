@@ -1,7 +1,7 @@
 <template>
     <ElementWrapper
-        :width="width"
-        :height="height"
+        :width="spec.fullDiameter"
+        :height="spec.fullLength"
     >
         <HoverGroup group="hydroarrow-body">
             <PipeElement :spec="spec" />
@@ -10,15 +10,15 @@
         <HoverGroup group="hydroarrow-joiner">
             <PipeElement
                 :spec="spec.mainJoin.top"
-                :x="spec.insulation"
-                :y="mmToUnits(spec.thermowellJoin.top.y)"
+                :x="spec.insulation + spec.thickness"
+                :y="spec.thermowellJoin.top.y"
                 pivot="bottom"
                 :rotate="-90"
             />
             <PipeElement
                 :spec="spec.mainJoin.bottom"
-                :x="spec.insulation"
-                :y="mmToUnits(spec.thermowellJoin.bottom.y)"
+                :x="spec.insulation + spec.thickness"
+                :y="spec.thermowellJoin.bottom.y"
                 pivot="bottom"
                 :rotate="-90"
             />
@@ -27,13 +27,13 @@
         <HoverGroup group="hydroarrow-thermowell">
             <ThermowellElement
                 :element="spec.thermowells.top"
-                :x="mmToUnits(spec.thermowellJoin.top.x)"
-                :y="mmToUnits(spec.thermowellJoin.top.y)"
+                :x="spec.thermowellJoin.top.x"
+                :y="spec.thermowellJoin.top.y"
             />
             <ThermowellElement
                 :element="spec.thermowells.bottom"
-                :x="mmToUnits(spec.thermowellJoin.bottom.x)"
-                :y="mmToUnits(spec.thermowellJoin.bottom.y)"
+                :x="spec.thermowellJoin.bottom.x"
+                :y="spec.thermowellJoin.bottom.y"
             />
         </HoverGroup>
     </ElementWrapper>
@@ -50,15 +50,7 @@ defineOptions({
     name: 'HydroarrowElement',
 })
 
-const props = defineProps<{
+defineProps<{
     spec: HydroarrowSpec
 }>()
-
-const width = computed(() => {
-    return mmToUnits(props.spec.fullDiameter)
-})
-
-const height = computed(() => {
-    return mmToUnits(props.spec.fullLength)
-})
 </script>
