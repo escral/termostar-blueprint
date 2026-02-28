@@ -1,8 +1,8 @@
 import { type PipeEnd, PipeSpec } from '~/lib/Specs/PipeSpec'
 
 export class HydroarrowMainJoinSpec extends PipeSpec {
-    public diameter: number = 50
-    public length: number = 100
+    public diameter: number = 40
+    public length: number = 60
     public insulation: number = 0
     public thickness: number = 5
 
