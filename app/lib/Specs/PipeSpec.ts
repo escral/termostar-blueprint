@@ -26,8 +26,7 @@ export abstract class PipeSpec {
 
     public ends: Record<'top' | 'bottom', PipeEnd> = {
         top: {
-            type: 'thread',
-            length: 33,
+            type: 'cut',
         },
         bottom: {
             type: 'cut',
