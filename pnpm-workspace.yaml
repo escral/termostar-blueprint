@@ -5,5 +5,3 @@ onlyBuiltDependencies:
 
 publicHoistPattern:
   - eslint
-  - yorkie
-  - lint-staged
